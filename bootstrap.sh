@@ -15,7 +15,9 @@ echo 'export PATH=$PATH:/usr/local/go/bin' >> "$HOME/.profile"
 sudo setcap cap_net_bind_service=+ep $(which node)
 
 # https://certbot.eff.org/instructions?ws=other&os=snap
+sudo apt-get remove certbot
 sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/local/bin/certbot
 # sudo certbot certonly --standalone -n --agree-tos -m name@example.com --redirect -d example.com,www.example.com
 
 # https://certbot.eff.org/docs/using.html#where-are-my-certificates
