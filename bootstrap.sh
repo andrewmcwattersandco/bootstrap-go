@@ -5,35 +5,24 @@
 # Use Deploy keys instead
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/managing-deploy-keys#deploy-keys
 
-# https://github.com/nvm-sh/nvm
-sudo apt-get update
-sudo apt-get -y install libatomic1
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-nvm install node
+# https://go.dev/doc/install
+curl -OL https://go.dev/dl/go1.26.1.linux-amd64.tar.gz
+ rm -rf /usr/local/go && tar -C /usr/local -xzf go1.26.1.linux-amd64.tar.gz
+echo 'export PATH=$PATH:/usr/local/go/bin' >> "$HOME/.profile"
+ go version
 
 # https://cwiki.apache.org/confluence/display/HTTPD/NonRootPortBinding
 sudo setcap cap_net_bind_service=+ep $(which node)
-
-# https://pm2.keymetrics.io
-npm install pm2 -g
 
 # https://certbot.eff.org/instructions?ws=other&os=snap
 sudo snap install --classic certbot
 # sudo certbot certonly --standalone -n --agree-tos -m name@example.com --redirect -d example.com,www.example.com
 
-# https://eff-certbot.readthedocs.io/en/stable/using.html?highlight=renewal#setting-up-automated-renewal
-# sudo sh -c 'printf "#!/bin/sh\npm2 stop www\n" > /etc/letsencrypt/renewal-hooks/pre/node.sh'
-# sudo sh -c 'printf "#!/bin/sh\npm2 start www\n" > /etc/letsencrypt/renewal-hooks/post/node.sh'
-# sudo chmod 755 /etc/letsencrypt/renewal-hooks/pre/node.sh
-# sudo chmod 755 /etc/letsencrypt/renewal-hooks/post/node.sh
-
 # https://certbot.eff.org/docs/using.html#where-are-my-certificates
 # sudo chmod -R 0755 /etc/letsencrypt/{live,archive}
 
 # https://ubuntu.com/server/docs/how-to/databases/install-mysql/
+sudo apt-get update
 sudo apt-get -y install mysql-server
 # sudo apt-get -y install mariadb-server
 # https://ubuntu.com/server/docs/how-to/databases/install-postgresql/
